@@ -1,0 +1,137 @@
+input {
+  font-size: 16px;
+  color: white;
+  outline: none;
+  display: block;
+  padding: 8px;
+  margin: 20px 0;
+  width: 350px;
+  height: 50px;
+  border-radius: 8px;
+  box-shadow: 0 0 3px #4d0eff;
+  border: 3px solid #4d0eff;
+  background-color: #0a0a14;
+  box-sizing: border-box;
+}
+
+div.centrage {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+
+  height: 100vh;
+  align-items: center;
+}
+h3,
+h2 {
+  text-align: center;
+  color: white;
+  text-transform: uppercase;
+  font-size: 18px;
+}
+div.loader {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 4px solid black;
+  border-right-color: white;
+  border-top-color: white;
+  transition: 0.5s;
+  opacity: 1;
+
+  animation: loader_rotation 4s linear infinite;
+}
+
+@keyframes loader_rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+  50% {
+    transform: rotate(360deg);
+  }
+  100% {
+    transform: rotate(720deg);
+  }
+}
+
+button {
+  display: flex;
+  justify-content: center;
+
+  align-items: center;
+  width: 300px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  background-color: #4d0eff;
+  outline: none;
+  border: none;
+  color: white;
+  height: 50px;
+  padding: 8px;
+  width: 100%;
+}
+::placeholder {
+  color: gray;
+}
+div.container {
+  background-color: #0a0a14;
+  width: 500px;
+  height: 600px;
+  display: flex;
+  justify-content: center;
+  padding: 40px 20px;
+  box-sizing: border-box;
+  border-radius: 10px;
+}
+a {
+  color: #4d0eff;
+}
+
+body {
+  margin: 0px;
+  background-color: #595864;
+}
+
+* {
+  font-family: Arial;
+}
+div.items {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@media only screen and (max-width: 600px) {
+  div.container {
+    width: 100%;
+    height: 100%;
+    padding: 80px 40px;
+    border-radius: 0px;
+  }
+
+  div.items {
+    width: 100%;
+  }
+
+  form {
+    width: 100%;
+  }
+
+  input,
+  button {
+    width: 100%;
+    font-size: 14px;
+  }
+  h2,
+  h3 {
+    font-size: 14px;
+  }
+
+  div.centrage {
+    width: 100%;
+    height: 100vh;
+    margin: 0;
+  }
+}
