@@ -1,9 +1,9 @@
-/**
+﻿/**
  * MovieAll - Showcase Website Script
  * Interactive features: 3D phone tilt, screenshot carousel, lightbox,
  * category filters, accordion, download feedback, animations.
  * 
- * Toutes les descriptions ont été méticuleusement alignées avec chaque capture d'écran réelle.
+ * Toutes les descriptions ont Ã©tÃ© mÃ©ticuleusement alignÃ©es avec chaque capture d'Ã©cran rÃ©elle.
  */
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -105,32 +105,32 @@ function initHeroTilt() {
 }
 
 /* ==========================================================================
-   3. Screenshot Gallery & Filter (Données 100% Fidèles aux Captures)
+   3. Screenshot Gallery & Filter (DonnÃ©es 100% FidÃ¨les aux Captures)
    ========================================================================== */
 const screenshotData = [
   {
     id: 1,
     img: 'assets/screenshots/screen-1.jpg',
-    title: "Accueil, Reprise & Chaînes en Direct",
+    title: "Accueil, Reprise & ChaÃ®nes en Direct",
     category: 'home',
     categoryName: 'Accueil & TV Direct',
-    desc: "Écran d'accueil complet avec bannière « À la une » (Fall 2 : Deadpoint), carrousel « Continuer à regarder » avec reprise exacte du temps restant, et accès immédiat aux Chaînes en Direct 24/7 (télévision, foot en direct, ADN TV+, Euronews en 720p)."
+    desc: "Ã‰cran d'accueil complet avec banniÃ¨re Â« Ã€ la une Â» (Fall 2 : Deadpoint), carrousel Â« Continuer Ã  regarder Â» avec reprise exacte du temps restant, et accÃ¨s immÃ©diat aux ChaÃ®nes en Direct 24/7 (tÃ©lÃ©vision, foot en direct, ADN TV+, Euronews en 720p)."
   },
   {
     id: 2,
     img: 'assets/screenshots/screen-2.jpg',
-    title: "Catalogue French Stream (Films & Séries)",
+    title: "Catalogue French Stream (Films & SÃ©ries)",
     category: 'sources',
     categoryName: 'French Stream',
-    desc: "Onglet source « French Stream » permettant de basculer entre films et séries par plateforme. Affichage en grille haute définition avec filtres Nouveautés et badges clairs VF/VOSTFR (ex. Par Tous Les Moyens, Bad Apples, Sacrifice)."
+    desc: "Onglet source Â« French Stream Â» permettant de basculer entre films et sÃ©ries par plateforme. Affichage en grille haute dÃ©finition avec filtres NouveautÃ©s et badges clairs VF/VOSTFR (ex. Par Tous Les Moyens, Bad Apples, Sacrifice)."
   },
   {
     id: 3,
     img: 'assets/screenshots/screen-3.jpg',
-    title: "Catalogue Anime-Sama (Animés & Films)",
+    title: "Catalogue Anime-Sama (AnimÃ©s & Films)",
     category: 'sources',
     categoryName: 'Anime-Sama',
-    desc: "Intégration directe de la source « Anime-Sama » avec filtres En cours, Terminés et En VF. Navigation parmi les animés cultes et nouveautés avec jaquettes haute résolution (Akane Banashi, 86 Eighty Six, A Silent Voice)."
+    desc: "IntÃ©gration directe de la source Â« Anime-Sama Â» avec filtres En cours, TerminÃ©s et En VF. Navigation parmi les animÃ©s cultes et nouveautÃ©s avec jaquettes haute rÃ©solution (Akane Banashi, 86 Eighty Six, A Silent Voice)."
   },
   {
     id: 4,
@@ -138,55 +138,55 @@ const screenshotData = [
     title: "Catalogue French-Manga (Genres & VOSTFR)",
     category: 'sources',
     categoryName: 'French-Manga',
-    desc: "Source « French-Manga » avec navigation par Genres, Thèmes & Tags. Vue des derniers animes récemment mis à jour en VOSTFR et VF (Cyberpunk : Edgerunners Saison 2, Suikoden, The Laid-Off Cheat-Grant Mage)."
+    desc: "Source Â« French-Manga Â» avec navigation par Genres, ThÃ¨mes & Tags. Vue des derniers animes rÃ©cemment mis Ã  jour en VOSTFR et VF (Cyberpunk : Edgerunners Saison 2, Suikoden, The Laid-Off Cheat-Grant Mage)."
   },
   {
     id: 5,
     img: 'assets/screenshots/screen-5.jpg',
-    title: "Fiche Détaillée & Choix VF / VOSTFR (One Piece)",
+    title: "Fiche DÃ©taillÃ©e & Choix VF / VOSTFR (One Piece)",
     category: 'details-scans',
-    categoryName: 'Fiche & Épisodes',
-    desc: "Fiche complète avec jaquette, badges (54 saisons, source Anime-Sama), bouton direct pour lancer la vidéo ou ouvrir les Scans. Découpage précis par sagas avec choix instantané entre VF et VOSTFR (East Blue, Alabasta, Île Céleste)."
+    categoryName: 'Fiche & Ã‰pisodes',
+    desc: "Fiche complÃ¨te avec jaquette, badges (54 saisons, source Anime-Sama), bouton direct pour lancer la vidÃ©o ou ouvrir les Scans. DÃ©coupage prÃ©cis par sagas avec choix instantanÃ© entre VF et VOSTFR (East Blue, Alabasta, ÃŽle CÃ©leste)."
   },
   {
     id: 6,
     img: 'assets/screenshots/screen-6.jpg',
-    title: "Lecteur de Scans Manga Intégré (Couleur & Chapitres)",
+    title: "Lecteur de Scans Manga IntÃ©grÃ© (Couleur & Chapitres)",
     category: 'details-scans',
     categoryName: 'Lecteur Scans Manga',
-    desc: "Liseuse de scans manga intégrée avec lecture plein écran en couleur (One Piece Chapitre 1004). Barre de contrôle inférieure avec compteur de pages (7/16), curseur de défilement rapide et navigation de chapitre à chapitre."
+    desc: "Liseuse de scans manga intÃ©grÃ©e avec lecture plein Ã©cran en couleur (One Piece Chapitre 1004). Barre de contrÃ´le infÃ©rieure avec compteur de pages (7/16), curseur de dÃ©filement rapide et navigation de chapitre Ã  chapitre."
   },
   {
     id: 7,
     img: 'assets/screenshots/screen-7.jpg',
-    title: "Gestionnaire de Téléchargements Hors-Ligne",
+    title: "Gestionnaire de TÃ©lÃ©chargements Hors-Ligne",
     category: 'downloads-settings',
-    categoryName: 'Téléchargements',
-    desc: "Tableau de bord hors-ligne affichant le statut en cours, la vitesse réseau, le nombre de fichiers terminés (14) et l'espace disque consommé (3.99 Go). Épisodes prêts pour la lecture hors-ligne (Ao Ashi en 1080p, Cyberpunk : Edgerunners)."
+    categoryName: 'TÃ©lÃ©chargements',
+    desc: "Tableau de bord hors-ligne affichant le statut en cours, la vitesse rÃ©seau, le nombre de fichiers terminÃ©s (14) et l'espace disque consommÃ© (3.99 Go). Ã‰pisodes prÃªts pour la lecture hors-ligne (Ao Ashi en 1080p, Cyberpunk : Edgerunners)."
   },
   {
     id: 8,
     img: 'assets/screenshots/screen-8.jpg',
-    title: "Personnalisation des Couleurs & Thèmes Exclusifs",
+    title: "Personnalisation des Couleurs & ThÃ¨mes Exclusifs",
     category: 'downloads-settings',
-    categoryName: 'Thèmes & Couleurs',
-    desc: "Personnalisation complète de l'application : suivi des couleurs dynamiques système Android 12+, sélection parmi 12 palettes de couleurs d'accentuation, et thèmes exclusifs (Netflix, Crunchyroll, Midnight Tokyo, Arctic Aurora)."
+    categoryName: 'ThÃ¨mes & Couleurs',
+    desc: "Personnalisation complÃ¨te de l'application : suivi des couleurs dynamiques systÃ¨me Android 12+, sÃ©lection parmi 12 palettes de couleurs d'accentuation, et thÃ¨mes exclusifs (Netflix, Crunchyroll, Midnight Tokyo, Arctic Aurora)."
   },
   {
     id: 9,
     img: 'assets/screenshots/screen-9.jpg',
-    title: "Lecteur Vidéo Pro avec Saut de Générique (+85s)",
+    title: "Lecteur VidÃ©o Pro avec Saut de GÃ©nÃ©rique (+85s)",
     category: 'player-search',
-    categoryName: 'Lecteur Vidéo Pro',
-    desc: "Lecteur vidéo haute performance (JoJo's Bizarre Adventure) avec commandes complètes : avance/recul de 30 secondes, bouton d'évitement de générique (+85s), sélection de qualité HD, réglage de la vitesse (1x), et verrouillage de l'écran."
+    categoryName: 'Lecteur VidÃ©o Pro',
+    desc: "Lecteur vidÃ©o haute performance (JoJo's Bizarre Adventure) avec commandes complÃ¨tes : avance/recul de 30 secondes, bouton d'Ã©vitement de gÃ©nÃ©rique (+85s), sÃ©lection de qualitÃ© HD, rÃ©glage de la vitesse (1x), et verrouillage de l'Ã©cran."
   },
   {
     id: 10,
     img: 'assets/screenshots/screen-10.jpg',
-    title: "Recherche Instantanée Multi-Saisons (Power Book)",
+    title: "Recherche InstantanÃ©e Multi-Saisons (Power Book)",
     category: 'player-search',
-    categoryName: 'Recherche Instantanée',
-    desc: "Moteur de recherche rapide avec suggestions immédiates. Résultats classés avec précision par saisons et versions audio VF (Power Book II : Ghost, Power Book III : Raising Kanan, Power Book IV : Force)."
+    categoryName: 'Recherche InstantanÃ©e',
+    desc: "Moteur de recherche rapide avec suggestions immÃ©diates. RÃ©sultats classÃ©s avec prÃ©cision par saisons et versions audio VF (Power Book II : Ghost, Power Book III : Raising Kanan, Power Book IV : Force)."
   }
 ];
 
@@ -376,8 +376,8 @@ function initDownloadFeedback() {
   downloadBtns.forEach(btn => {
     btn.addEventListener('click', () => {
       showToast(
-        '🚀 Téléchargement démarré !',
-        'Le fichier MovieAll-v0.1.0.apk (69 MB) est en cours de téléchargement. Ouvrez-le pour installer l\'application.'
+        'ðŸš€ TÃ©lÃ©chargement dÃ©marrÃ© !',
+        'Le fichier MovieAll-v0.1.1.apk (34 MB) est en cours de téléchargement. Ouvrez-le pour installer l\'application.'
       );
     });
   });
@@ -394,7 +394,7 @@ function showToast(title, message) {
   const toast = document.createElement('div');
   toast.className = 'toast';
   toast.innerHTML = `
-    <div class="toast-icon">✓</div>
+    <div class="toast-icon">âœ“</div>
     <div>
       <div class="toast-title">${title}</div>
       <div class="toast-desc">${message}</div>

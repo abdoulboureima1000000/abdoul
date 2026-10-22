@@ -1,0 +1,910 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MovieAll Admin — Console de Gestion & Téléchargement APK Officiel</title>
+  <meta name="description" content="Portail officiel MovieAll Admin. Téléchargez l'application Android MovieAll Admin pour gérer les notifications push, les catalogues et les flux en direct.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-dark: #07090e;
+      --bg-card: rgba(16, 20, 31, 0.75);
+      --bg-card-hover: rgba(22, 28, 44, 0.9);
+      --border-glass: rgba(255, 255, 255, 0.08);
+      --border-accent: rgba(245, 158, 11, 0.4);
+      --primary: #f59e0b;
+      --primary-glow: rgba(245, 158, 11, 0.35);
+      --primary-gradient: linear-gradient(135deg, #f59e0b 0%, #d97706 50%, #b45309 100%);
+      --accent-violet: #8b5cf6;
+      --accent-cyan: #06b6d4;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --text-dim: #64748b;
+      --success: #10b981;
+      --radius-lg: 20px;
+      --radius-md: 12px;
+      --font-main: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      font-family: var(--font-main);
+      line-height: 1.6;
+      overflow-x: hidden;
+      min-height: 100vh;
+      position: relative;
+    }
+
+    /* Ambient background glows */
+    body::before {
+      content: '';
+      position: fixed;
+      top: -150px;
+      left: 15%;
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(245, 158, 11, 0.12) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: 0;
+      filter: blur(80px);
+    }
+
+    body::after {
+      content: '';
+      position: fixed;
+      bottom: -100px;
+      right: 10%;
+      width: 550px;
+      height: 550px;
+      background: radial-gradient(circle, rgba(139, 92, 246, 0.14) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: 0;
+      filter: blur(90px);
+    }
+
+    /* Container */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Navigation */
+    nav.navbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px 0;
+      border-bottom: 1px solid var(--border-glass);
+      backdrop-filter: blur(12px);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(7, 9, 14, 0.82);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+    }
+
+    .brand-logo {
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, #f59e0b, #ec4899);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 24px var(--primary-glow);
+    }
+
+    .brand-logo svg {
+      width: 24px;
+      height: 24px;
+      color: #fff;
+    }
+
+    .brand-text {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .brand-title {
+      font-size: 1.25rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .admin-pill {
+      font-size: 0.65rem;
+      font-weight: 700;
+      background: rgba(245, 158, 11, 0.2);
+      border: 1px solid rgba(245, 158, 11, 0.5);
+      color: #fbbf24;
+      padding: 2px 7px;
+      border-radius: 20px;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .brand-subtitle {
+      font-size: 0.75rem;
+      color: var(--text-dim);
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .nav-link {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+
+    .nav-link:hover {
+      color: #fff;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 12px 24px;
+      border-radius: var(--radius-md);
+      font-family: var(--font-main);
+      font-weight: 600;
+      font-size: 0.95rem;
+      text-decoration: none;
+      cursor: pointer;
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      border: 1px solid transparent;
+      outline: none;
+    }
+
+    .btn-primary {
+      background: var(--primary-gradient);
+      color: #000;
+      font-weight: 700;
+      box-shadow: 0 8px 24px var(--primary-glow);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 14px 32px rgba(245, 158, 11, 0.55);
+      filter: brightness(1.08);
+    }
+
+    .btn-secondary {
+      background: rgba(255, 255, 255, 0.04);
+      color: var(--text-main);
+      border-color: var(--border-glass);
+      backdrop-filter: blur(8px);
+    }
+
+    .btn-secondary:hover {
+      background: rgba(255, 255, 255, 0.08);
+      border-color: rgba(255, 255, 255, 0.2);
+      transform: translateY(-2px);
+    }
+
+    /* Hero Section */
+    .hero {
+      padding: 80px 0 60px;
+      text-align: center;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 16px;
+      background: rgba(245, 158, 11, 0.1);
+      border: 1px solid rgba(245, 158, 11, 0.3);
+      border-radius: 30px;
+      font-size: 0.85rem;
+      color: #fbbf24;
+      font-weight: 600;
+      margin-bottom: 24px;
+      animation: pulse 3s infinite;
+    }
+
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--success);
+      box-shadow: 0 0 10px var(--success);
+    }
+
+    .hero h1 {
+      font-size: 3.2rem;
+      font-weight: 800;
+      line-height: 1.15;
+      letter-spacing: -0.03em;
+      margin-bottom: 20px;
+      background: linear-gradient(180deg, #ffffff 30%, #94a3b8 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero h1 span.gradient {
+      background: linear-gradient(135deg, #f59e0b 0%, #ec4899 50%, #8b5cf6 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero-desc {
+      font-size: 1.15rem;
+      color: var(--text-muted);
+      max-width: 680px;
+      margin: 0 auto 36px;
+    }
+
+    .hero-cta {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+
+    .btn-download-hero {
+      padding: 16px 36px;
+      font-size: 1.05rem;
+      border-radius: 14px;
+    }
+
+    .btn-download-hero svg {
+      width: 22px;
+      height: 22px;
+    }
+
+    .build-specs {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 18px;
+      font-size: 0.85rem;
+      color: var(--text-dim);
+      font-family: var(--font-mono);
+      flex-wrap: wrap;
+    }
+
+    .build-specs span {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    /* Dashboard preview card */
+    .preview-wrapper {
+      margin: 50px auto;
+      max-width: 980px;
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border-glass);
+      background: var(--bg-card);
+      backdrop-filter: blur(20px);
+      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.7), 0 0 60px rgba(245, 158, 11, 0.08);
+      overflow: hidden;
+      position: relative;
+    }
+
+    .preview-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 20px;
+      border-bottom: 1px solid var(--border-glass);
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    .window-dots {
+      display: flex;
+      gap: 8px;
+    }
+
+    .dot {
+      width: 11px;
+      height: 11px;
+      border-radius: 50%;
+    }
+
+    .dot.red { background: #ef4444; }
+    .dot.yellow { background: #f59e0b; }
+    .dot.green { background: #10b981; }
+
+    .preview-title {
+      font-size: 0.8rem;
+      color: var(--text-dim);
+      font-family: var(--font-mono);
+    }
+
+    .preview-body {
+      padding: 30px;
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 24px;
+      text-align: left;
+    }
+
+    @media (max-width: 768px) {
+      .preview-body {
+        grid-template-columns: 1fr;
+      }
+      .hero h1 {
+        font-size: 2.2rem;
+      }
+    }
+
+    /* Mock notification composer */
+    .composer-card {
+      background: rgba(7, 9, 14, 0.6);
+      border: 1px solid var(--border-glass);
+      border-radius: var(--radius-md);
+      padding: 20px;
+    }
+
+    .composer-title {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .composer-title svg {
+      color: var(--primary);
+    }
+
+    .form-group {
+      margin-bottom: 12px;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      margin-bottom: 4px;
+      font-family: var(--font-mono);
+    }
+
+    .form-input {
+      width: 100%;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 8px;
+      padding: 10px 12px;
+      color: #fff;
+      font-size: 0.85rem;
+      font-family: var(--font-main);
+    }
+
+    .btn-send-mock {
+      width: 100%;
+      background: var(--primary-gradient);
+      color: #000;
+      border: none;
+      padding: 10px;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 0.85rem;
+      cursor: pointer;
+      margin-top: 6px;
+      transition: opacity 0.2s;
+    }
+
+    .btn-send-mock:hover {
+      opacity: 0.9;
+    }
+
+    /* Mock metrics cards */
+    .metrics-col {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .metric-box {
+      background: rgba(7, 9, 14, 0.6);
+      border: 1px solid var(--border-glass);
+      border-radius: var(--radius-md);
+      padding: 16px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .metric-info h4 {
+      font-size: 0.8rem;
+      color: var(--text-dim);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 4px;
+    }
+
+    .metric-info .value {
+      font-size: 1.5rem;
+      font-weight: 800;
+      font-family: var(--font-mono);
+      color: #fff;
+    }
+
+    .metric-badge {
+      font-size: 0.75rem;
+      padding: 4px 10px;
+      border-radius: 20px;
+      font-weight: 600;
+      background: rgba(16, 185, 129, 0.15);
+      color: #34d399;
+      border: 1px solid rgba(16, 185, 129, 0.3);
+    }
+
+    /* Features Grid */
+    .features-section {
+      padding: 80px 0;
+      text-align: center;
+    }
+
+    .section-tag {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--primary);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 8px;
+    }
+
+    .section-title {
+      font-size: 2.2rem;
+      font-weight: 800;
+      margin-bottom: 40px;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 24px;
+      text-align: left;
+    }
+
+    .feature-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-glass);
+      border-radius: var(--radius-md);
+      padding: 28px;
+      transition: all 0.3s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .feature-card:hover {
+      background: var(--bg-card-hover);
+      border-color: rgba(245, 158, 11, 0.3);
+      transform: translateY(-4px);
+    }
+
+    .feature-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      background: rgba(245, 158, 11, 0.1);
+      border: 1px solid rgba(245, 158, 11, 0.25);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 18px;
+      color: var(--primary);
+    }
+
+    .feature-card h3 {
+      font-size: 1.15rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+      color: #fff;
+    }
+
+    .feature-card p {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    /* Installation Box */
+    .install-box {
+      margin: 40px auto 80px;
+      background: linear-gradient(135deg, rgba(245, 158, 11, 0.08) 0%, rgba(139, 92, 246, 0.05) 100%);
+      border: 1px solid var(--border-accent);
+      border-radius: var(--radius-lg);
+      padding: 40px;
+      text-align: center;
+      position: relative;
+    }
+
+    .install-box h2 {
+      font-size: 1.8rem;
+      margin-bottom: 12px;
+    }
+
+    .install-box p {
+      color: var(--text-muted);
+      max-width: 620px;
+      margin: 0 auto 28px;
+    }
+
+    .install-steps {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
+      margin: 30px 0;
+      text-align: left;
+    }
+
+    .step-item {
+      background: rgba(7, 9, 14, 0.7);
+      border: 1px solid var(--border-glass);
+      border-radius: 10px;
+      padding: 16px;
+    }
+
+    .step-num {
+      font-family: var(--font-mono);
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 6px;
+      font-size: 0.85rem;
+    }
+
+    .step-text {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    /* Footer */
+    footer {
+      border-top: 1px solid var(--border-glass);
+      padding: 30px 0;
+      text-align: center;
+      font-size: 0.85rem;
+      color: var(--text-dim);
+    }
+
+    footer a {
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    footer a:hover {
+      color: var(--primary);
+    }
+
+    /* Toast */
+    #download-toast {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background: rgba(16, 20, 31, 0.95);
+      border: 1px solid var(--primary);
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8), 0 0 20px var(--primary-glow);
+      color: #fff;
+      padding: 16px 22px;
+      border-radius: 12px;
+      font-size: 0.9rem;
+      display: none;
+      align-items: center;
+      gap: 12px;
+      z-index: 1000;
+      backdrop-filter: blur(12px);
+      animation: slideIn 0.3s ease;
+    }
+
+    @keyframes slideIn {
+      from { transform: translateY(20px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.75; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="navbar">
+    <div class="container" style="display: flex; align-items: center; justify-content: space-between; width: 100%;">
+      <a href="index.html" class="brand">
+        <div class="brand-logo">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+          </svg>
+        </div>
+        <div class="brand-text">
+          <span class="brand-title">MovieAll <span class="admin-pill">Staff Console</span></span>
+          <span class="brand-subtitle">Administration & Super-Admin Portal</span>
+        </div>
+      </a>
+
+      <div class="nav-actions">
+        <a href="../index.html" class="nav-link">
+          <svg style="width:16px;height:16px;vertical-align:-3px;margin-right:4px;" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/>
+          </svg>
+          Site Public
+        </a>
+        <a href="https://github.com/abdoulboureima1000000/abdoul/releases/download/vision/movieall-admin-release.apk" download="movieall-admin-v1.0.0.apk" class="btn btn-primary" id="nav-download-btn">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+            <polyline points="7 10 12 15 17 10"></polyline>
+            <line x1="12" y1="15" x2="12" y2="3"></line>
+          </svg>
+          Télécharger l'APK Admin
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="container">
+      <div class="hero-badge">
+        <span class="status-dot"></span>
+        Application Réservée aux Administrateurs • v1.0.0
+      </div>
+
+      <h1>
+        Contrôlez l'écosystème <br>
+        <span class="gradient">MovieAll en temps réel</span>
+      </h1>
+
+      <p class="hero-desc">
+        Gérez les notifications push ciblées Firebase Cloud Messaging, surveillez l'état des serveurs de streaming (Anime-Sama, French Stream, French-Manga) et pilotez les canaux de diffusion depuis votre terminal mobile.
+      </p>
+
+      <div class="hero-cta">
+        <a href="https://github.com/abdoulboureima1000000/abdoul/releases/download/vision/movieall-admin-release.apk" download="movieall-admin-v1.0.0.apk" class="btn btn-primary btn-download-hero" id="hero-admin-download">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+            <polyline points="7 10 12 15 17 10"></polyline>
+            <line x1="12" y1="15" x2="12" y2="3"></line>
+          </svg>
+          Télécharger MovieAll Admin APK (~24 Mo)
+        </a>
+        <a href="../index.html" class="btn btn-secondary btn-download-hero">
+          Aller sur le site MovieAll
+        </a>
+      </div>
+
+      <div class="build-specs">
+        <span>📦 Version: 1.0.0 (Build 1)</span>
+        <span>•</span>
+        <span>⚡ Compatibilité: Android 7.0 à 15+</span>
+        <span>•</span>
+        <span>🛡️ Signé & Vérifié (V2/V3)</span>
+        <span>•</span>
+        <span>💾 Poids: 23.8 Mo</span>
+      </div>
+
+      <!-- Dashboard Preview -->
+      <div class="preview-wrapper">
+        <div class="preview-header">
+          <div class="window-dots">
+            <span class="dot red"></span>
+            <span class="dot yellow"></span>
+            <span class="dot green"></span>
+          </div>
+          <span class="preview-title">movieall-admin.internal/console</span>
+          <span style="font-size:0.75rem; color:var(--success); font-family:var(--font-mono);">● EN DIRECT</span>
+        </div>
+
+        <div class="preview-body">
+          <!-- Left: Notification Sender Preview -->
+          <div class="composer-card">
+            <div class="composer-title">
+              <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/>
+              </svg>
+              Envoi Direct de Notification Push
+            </div>
+            <div class="form-group">
+              <label>TITRE DE L'ALERTE</label>
+              <input type="text" class="form-input" id="demo-title" value="🔥 Nouvel épisode de Solo Leveling disponible !" readonly>
+            </div>
+            <div class="form-group">
+              <label>MESSAGE DE DIFFUSION</label>
+              <input type="text" class="form-input" id="demo-msg" value="L'épisode 12 VF/VOSTFR vient de sortir en qualité 1080p." readonly>
+            </div>
+            <div class="form-group">
+              <label>CIBLE DU STREAM / DEEP LINK</label>
+              <input type="text" class="form-input" style="font-family:var(--font-mono); font-size:0.75rem;" value="anime-sama://stream/solo-leveling/ep-12" readonly>
+            </div>
+            <button class="btn-send-mock" onclick="triggerMockSend()">Diffuser Instantanément aux Utilisateurs</button>
+          </div>
+
+          <!-- Right: Metrics -->
+          <div class="metrics-col">
+            <div class="metric-box">
+              <div class="metric-info">
+                <h4>Abonnés Notifications</h4>
+                <div class="value">14 820+</div>
+              </div>
+              <span class="metric-badge">+18% cette semaine</span>
+            </div>
+
+            <div class="metric-box">
+              <div class="metric-info">
+                <h4>Sources en Ligne</h4>
+                <div class="value">3 / 3</div>
+              </div>
+              <span class="metric-badge" style="background:rgba(6,182,212,0.15); color:#22d3ee; border-color:rgba(6,182,212,0.3);">100% Opérationnel</span>
+            </div>
+
+            <div class="metric-box">
+              <div class="metric-info">
+                <h4>Chaînes Live 24/7</h4>
+                <div class="value">28 Actives</div>
+              </div>
+              <span class="metric-badge">Flux Stable</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section class="features-section">
+    <div class="container">
+      <div class="section-tag">Capacités & Outils</div>
+      <h2 class="section-title">Tout ce dont l'équipe a besoin dans une seule app</h2>
+
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon">
+            <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/>
+            </svg>
+          </div>
+          <h3>Diffusion Push Firebase (FCM)</h3>
+          <p>Composez et expédiez des alertes de nouveaux épisodes, sorties de films et alertes sportives en temps réel vers tous les utilisateurs de MovieAll.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">
+            <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+            </svg>
+          </div>
+          <h3>Authentification Administrateur</h3>
+          <p>Accès strictement réservé par identifiants administrateur avec sessions sécurisées par Firebase Authentication et rôles protégés.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">
+            <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path d="M13 10V3L4 14h7v7l9-11h-7z"/>
+            </svg>
+          </div>
+          <h3>Supervision des Catalogues</h3>
+          <p>Contrôlez la synchronisation des serveurs Otakuflix / FreeFlix et l'extraction des flux des plateformes partenaires en direct.</p>
+        </div>
+      </div>
+
+      <!-- Installation Box -->
+      <div class="install-box">
+        <h2>Installer l'application MovieAll Admin sur votre smartphone</h2>
+        <p>L'APK officiel est optimisé pour tous les téléphones Android (Android 7.0 à Android 15+). L'installation prend moins de 30 secondes.</p>
+
+        <div class="install-steps">
+          <div class="step-item">
+            <div class="step-num">ÉTAPE 01</div>
+            <div class="step-text">Téléchargez le fichier APK ci-dessous sur votre appareil Android.</div>
+          </div>
+          <div class="step-item">
+            <div class="step-num">ÉTAPE 02</div>
+            <div class="step-text">Ouvrez le fichier téléchargé et autorisez l'installation d'applications inconnues.</div>
+          </div>
+          <div class="step-item">
+            <div class="step-num">ÉTAPE 03</div>
+            <div class="step-text">Lancez l'app et connectez-vous avec vos accès administrateur.</div>
+          </div>
+        </div>
+
+        <a href="https://github.com/abdoulboureima1000000/abdoul/releases/download/vision/movieall-admin-release.apk" download="movieall-admin-v1.0.0.apk" class="btn btn-primary btn-download-hero" id="install-box-download">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+            <polyline points="7 10 12 15 17 10"></polyline>
+            <line x1="12" y1="15" x2="12" y2="3"></line>
+          </svg>
+          Télécharger l'APK Admin Officiel (~24 Mo)
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <p style="margin-bottom:8px;">
+        © 2026 MovieAll Studio • Console d'administration sécurisée • 
+        <a href="../index.html">Accéder au site MovieAll grand public</a>
+      </p>
+      <p style="color:var(--text-dim); font-size:0.75rem;">
+        Ce portail et l'application MovieAll Admin sont strictement réservés à l'équipe de gestion et de diffusion.
+      </p>
+    </div>
+  </footer>
+
+  <!-- Toast -->
+  <div id="download-toast">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2.5">
+      <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+      <polyline points="22 4 12 14.01 9 11.01"></polyline>
+    </svg>
+    <div>
+      <div style="font-weight:700;">Téléchargement de MovieAll Admin lancé !</div>
+      <div style="font-size:0.8rem; color:var(--text-muted);">Le fichier movieall-admin-release.apk (~24 Mo) est en cours de téléchargement.</div>
+    </div>
+  </div>
+
+  <script>
+    // Toast trigger on download
+    const toast = document.getElementById('download-toast');
+    document.querySelectorAll('a[download]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        toast.style.display = 'flex';
+        setTimeout(() => {
+          toast.style.display = 'none';
+        }, 5000);
+      });
+    });
+
+    function triggerMockSend() {
+      const btn = document.querySelector('.btn-send-mock');
+      const originalText = btn.innerText;
+      btn.innerText = 'Envoi en cours à 14 820 appareils...';
+      btn.style.opacity = '0.7';
+      setTimeout(() => {
+        btn.innerText = '✓ Diffusé avec succès !';
+        btn.style.background = '#10b981';
+        btn.style.color = '#fff';
+        setTimeout(() => {
+          btn.innerText = originalText;
+          btn.style.background = '';
+          btn.style.color = '';
+          btn.style.opacity = '1';
+        }, 2500);
+      }, 1200);
+    }
+  </script>
+</body>
+</html>
