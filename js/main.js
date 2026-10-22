@@ -159,9 +159,9 @@ const screenshotData = [
   {
     id: 7,
     img: 'assets/screenshots/screen-7.jpg',
-    title: "Gestionnaire de TÃ©lÃ©chargements Hors-Ligne",
+    title: "Gestionnaire de Téléchargements Hors-Ligne",
     category: 'downloads-settings',
-    categoryName: 'TÃ©lÃ©chargements',
+    categoryName: 'Téléchargements',
     desc: "Tableau de bord hors-ligne affichant le statut en cours, la vitesse rÃ©seau, le nombre de fichiers terminÃ©s (14) et l'espace disque consommÃ© (3.99 Go). Ã‰pisodes prÃªts pour la lecture hors-ligne (Ao Ashi en 1080p, Cyberpunk : Edgerunners)."
   },
   {
@@ -375,9 +375,12 @@ function initDownloadFeedback() {
 
   downloadBtns.forEach(btn => {
     btn.addEventListener('click', () => {
+      const isArm64 = btn.href && btn.href.includes('arm64');
+      const filename = isArm64 ? 'MovieAll-v0.1.1-arm64.apk' : 'MovieAll-v0.1.1.apk';
+      const size = isArm64 ? '15 Mo' : '34 Mo';
       showToast(
-        'ðŸš€ TÃ©lÃ©chargement dÃ©marrÃ© !',
-        'Le fichier MovieAll-v0.1.1.apk (34 MB) est en cours de téléchargement. Ouvrez-le pour installer l\'application.'
+        '🚀 Téléchargement démarré !',
+        `Le fichier ${filename} (${size}) est en cours de téléchargement. Ouvrez-le pour installer l\'application.`
       );
     });
   });
@@ -394,7 +397,7 @@ function showToast(title, message) {
   const toast = document.createElement('div');
   toast.className = 'toast';
   toast.innerHTML = `
-    <div class="toast-icon">âœ“</div>
+    <div class="toast-icon">✓</div>
     <div>
       <div class="toast-title">${title}</div>
       <div class="toast-desc">${message}</div>
