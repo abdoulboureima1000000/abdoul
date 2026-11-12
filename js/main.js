@@ -1,4 +1,4 @@
-﻿/**
+/**
  * MovieAll - Showcase Website Script
  * Interactive features: 3D phone tilt, screenshot carousel, lightbox,
  * category filters, accordion, download feedback, animations.
@@ -376,7 +376,7 @@ function initDownloadFeedback() {
   downloadBtns.forEach(btn => {
     btn.addEventListener('click', () => {
       const isArm64 = btn.href && btn.href.includes('arm64');
-      const filename = isArm64 ? 'MovieAll-v0.1.1-arm64.apk' : 'MovieAll-v0.1.1.apk';
+      const filename = isArm64 ? 'MovieAll-v3.0.0-arm64.apk' : 'MovieAll-v3.0.0.apk';
       const size = isArm64 ? '15 Mo' : '34 Mo';
       showToast(
         '🚀 Téléchargement démarré !',
